@@ -3,52 +3,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_processing/flutter_processing.dart';
-import 'package:snake_game/_processing_demo_sketch_display.dart';
 
-class CodingTrainSnakeGameScreen extends StatefulWidget {
-  const CodingTrainSnakeGameScreen({
-    Key? key,
-    required this.sketchDemoController,
-  }) : super(key: key);
-
-  final SketchDemoController sketchDemoController;
-
-  @override
-  _CodingTrainSnakeGameScreenState createState() =>
-      _CodingTrainSnakeGameScreenState();
-}
-
-class _CodingTrainSnakeGameScreenState
-    extends State<CodingTrainSnakeGameScreen> {
-  final _sketchFocusNode = FocusNode();
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    _sketchFocusNode.requestFocus();
-  }
-
-  @override
-  void dispose() {
-    _sketchFocusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ProcessingDemo(
-      sketchFocusNode: _sketchFocusNode,
-      sketchDemoController: widget.sketchDemoController,
-      createSketch: () {
-        return _SnakeGameSketch();
-      },
-    );
-  }
-}
-
-class _SnakeGameSketch extends Sketch {
+class SnakeGameSketch extends Sketch {
   final _pixelsPerCell = 20.0;
   late int colCount;
   late int rowCount;
@@ -61,7 +18,7 @@ class _SnakeGameSketch extends Sketch {
 
   @override
   void setup() {
-    size(width: 500, height: 500);
+    size(width: 300, height: 400);
     frameRate = 10;
 
     colCount = (width / _pixelsPerCell).floor();
@@ -75,7 +32,7 @@ class _SnakeGameSketch extends Sketch {
     background(color: const Color.fromARGB(255, 51, 51, 51));
 
     if (_isGameOver) {
-      background(color: Colors.red);
+      background(color: Colors.amber);
       noLoop();
       return;
     }
@@ -124,16 +81,17 @@ class _SnakeGameSketch extends Sketch {
   }
 
   @override
-  void keyPressed() {
-    if (key == LogicalKeyboardKey.arrowUp) {
-      _snake.direction = _Direction.up;
-    } else if (key == LogicalKeyboardKey.arrowDown) {
-      _snake.direction = _Direction.down;
-    } else if (key == LogicalKeyboardKey.arrowLeft) {
-      _snake.direction = _Direction.left;
-    } else if (key == LogicalKeyboardKey.arrowRight) {
-      _snake.direction = _Direction.right;
-    }
+  void mouseDragged() {
+    _snake.direction = _Direction.up;
+    // if (key == LogicalKeyboardKey.arrowUp) {
+    //   _snake.direction = _Direction.up;
+    // } else if (key == LogicalKeyboardKey.arrowDown) {
+    //   _snake.direction = _Direction.down;
+    // } else if (key == LogicalKeyboardKey.arrowLeft) {
+    //   _snake.direction = _Direction.left;
+    // } else if (key == LogicalKeyboardKey.arrowRight) {
+    //   _snake.direction = _Direction.right;
+    // }
   }
 
   Point<int> _getRandomCell() {
@@ -223,13 +181,13 @@ extension on _Direction {
   Point<int> move(Point<int> position) {
     switch (this) {
       case _Direction.left:
-        return position + Point(-1, 0);
+        return position + const Point(-1, 0);
       case _Direction.up:
-        return position + Point(0, -1);
+        return position + const Point(0, -1);
       case _Direction.right:
-        return position + Point(1, 0);
+        return position + const Point(1, 0);
       case _Direction.down:
-        return position + Point(0, 1);
+        return position + const Point(0, 1);
     }
   }
 }
