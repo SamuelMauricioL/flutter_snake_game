@@ -19,8 +19,8 @@ class SnakeGameSketch extends Sketch {
 
   @override
   void setup() {
-    size(width: 300, height: 400);
-    frameRate = 10;
+    size(width: 800, height: 400);
+    frameRate = 13;
 
     colCount = (width / _pixelsPerCell).floor();
     rowCount = (height / _pixelsPerCell).floor();
@@ -76,9 +76,7 @@ class SnakeGameSketch extends Sketch {
     }
 
     // Generate food, if need
-    if (_food == null) {
-      _food = _getRandomCell();
-    }
+    _food ??= _getRandomCell();
   }
 
   @override
