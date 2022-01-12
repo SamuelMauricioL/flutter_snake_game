@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_processing/flutter_processing.dart';
 
 class SnakeGameSketch extends Sketch {
@@ -81,17 +82,16 @@ class SnakeGameSketch extends Sketch {
   }
 
   @override
-  void mouseDragged() {
-    _snake.direction = _Direction.up;
-    // if (key == LogicalKeyboardKey.arrowUp) {
-    //   _snake.direction = _Direction.up;
-    // } else if (key == LogicalKeyboardKey.arrowDown) {
-    //   _snake.direction = _Direction.down;
-    // } else if (key == LogicalKeyboardKey.arrowLeft) {
-    //   _snake.direction = _Direction.left;
-    // } else if (key == LogicalKeyboardKey.arrowRight) {
-    //   _snake.direction = _Direction.right;
-    // }
+  void keyPressed() {
+    if (key == LogicalKeyboardKey.arrowUp) {
+      _snake.direction = _Direction.up;
+    } else if (key == LogicalKeyboardKey.arrowDown) {
+      _snake.direction = _Direction.down;
+    } else if (key == LogicalKeyboardKey.arrowLeft) {
+      _snake.direction = _Direction.left;
+    } else if (key == LogicalKeyboardKey.arrowRight) {
+      _snake.direction = _Direction.right;
+    }
   }
 
   Point<int> _getRandomCell() {
